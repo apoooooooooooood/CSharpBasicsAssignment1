@@ -14,18 +14,20 @@
 // SLNX : المشروع بيستخدم الـnewer .slnx solution format.
 // ومن مميزاته إنه أبسط في الـstructure وأسهل في القراءة والمراجعة مع Git.
 
-Console.WriteLine("=== PART A: Project & Structure ===");
-Console.WriteLine("CSharpBasicsAssignment is ready.");
+//Console.WriteLine("=== PART A: Project & Structure ===");
+//Console.WriteLine("CSharpBasicsAssignment is ready.");
 
 
-namespace CSharpBasicsAssignment
-{
+namespace CSharpBasicsAssignment;
+
     class Program
     {
         static void Main(string[] args)
         {
             Console.WriteLine("=== PART B: C# Basics ===");
-           
+            RunTypesDemo();
+
+
         }
         //part B:  Variables, Types & Casting 
         static void RunTypesDemo()
@@ -74,7 +76,7 @@ namespace CSharpBasicsAssignment
 
             double myDoubleValue = 9.78;
             int x = (int)myDoubleValue; // explicit double -> int
-            int y = Convert.ToInt32(myDouble);
+            int y = Convert.ToInt32(myDoubleValue);
             Console.WriteLine($"double {myDoubleValue} explicitly converted to int: {x}");
             Console.WriteLine($"double {myDoubleValue} explicitly converted to int using Convert.ToInt32: {y}");
 
@@ -126,4 +128,3 @@ namespace CSharpBasicsAssignment
         }
 
     }
-}

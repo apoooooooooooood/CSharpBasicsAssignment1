@@ -20,6 +20,7 @@
 
 using System.Drawing;
 using System.Net;
+using System.Numerics;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Security.Principal;
@@ -30,8 +31,11 @@ namespace CSharpBasicsAssignment;
 
     class Program
     {
-        static void Main(string[] args)
+
+        private int _number = 42; // private field
+    static void Main(string[] args)
         {
+         
          Console.WriteLine("=== PART B: C# Basics ===");
          RunTypesDemo();
         RunValueVsReferenceDemo();
@@ -89,14 +93,29 @@ namespace CSharpBasicsAssignment;
         // Boxing only happens when a value type is stored in an object variable(the value gets copied into a new heap allocation).
         // Order is already a reference type, so this line just copies the existing address into an object-typed variable —
         // no new object is created, which is why ReferenceEquals(o1, o3) returns true.
-        
+
+
+
+        Console.WriteLine("---------------------------------------------------");
+        Console.WriteLine($"=== Scope & Operators ===");
+
+        ScopeAndOperatorsDemo S1=new ScopeAndOperatorsDemo();
+        S1.showNumber1();
+        S1.showNumber2();
+        S1.MethodScopeExample();
+        S1.BlockScopeExample();
+        S1.CompoundAssignmentExample();
+        S1.BitwiseOperatorsExample();
+
 
 
 
     }
     //part B:  Variables, Types & Casting 
+
     static void RunTypesDemo()
         {
+        
             // Step 1: Basic Types
             Console.WriteLine("=== Step 1: Basic Types ===");
 
@@ -190,6 +209,7 @@ namespace CSharpBasicsAssignment;
             decimal d = (decimal)f;   // ✅ Explicit conversion
             Console.WriteLine($"Explicit conversion: float {f} explicitly converted to decimal: {d} ");
 
+        
     }
     struct Point
     {
@@ -213,12 +233,116 @@ namespace CSharpBasicsAssignment;
         // p2 is a separate copy of p1 because Point is a value type.
         // Changing p2 does not affect p1.
     }
-
-    
-
-
-
-
-
-
+   
+    public void showNumber1()
+    {
+        Console.WriteLine(_number); //is visible to the method because it's in the same class
     }
+    public void showNumber2()
+    {
+        _number++;//is visible to the method because it's in the same class
+    }
+    public void MethodScopeExample()
+    {
+        string localMessage = "I only exist inside MethodScopeExample()";
+        Console.WriteLine(localMessage);
+    }
+    public void BlockScopeExample()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            // 'i' is scoped to the for-loop (declared in the loop header).
+            int squared = i * i; // 'squared' is scoped to the loop BODY block.
+            Console.WriteLine($"i = {i}, squared = {squared}");
+        } // both 'i' and 'squared' are destroyed here, when the loop block ends.
+
+        // Console.WriteLine(i);
+        // Compile error: "The name 'i' does not exist in the current context"
+    }
+
+
+
+
+
+
+
+
+}
+public class ScopeAndOperatorsDemo
+{
+    private int _number = 10;
+
+    public void showNumber1()
+    {
+        Console.WriteLine(_number); //is visible to the method because it's in the same class
+    }
+    public void showNumber2()
+    {
+        _number++;//is visible to the method because it's in the same class
+    }
+    public void MethodScopeExample()
+    {
+        string localMessage = "I only exist inside MethodScopeExample()";
+        Console.WriteLine(localMessage);
+    }
+    public void BlockScopeExample()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            // 'i' is scoped to the for-loop (declared in the loop header).
+            int squared = i * i; // 'squared' is scoped to the loop BODY block.
+            Console.WriteLine($"i = {i}, squared = {squared}");
+        } // both 'i' and 'squared' are destroyed here, when the loop block ends.
+
+        // Console.WriteLine(i);
+        // Compile error: "The name 'i' does not exist in the current context"
+    }
+
+
+    public void CompoundAssignmentExample()
+    {
+        int total = 100;
+        Console.WriteLine($"Start: total = {total}");
+
+        total += 20; // total = total + 20;  this is equivalent to total+=20.
+        Console.WriteLine($"After += 20: total = {total}");
+
+        total -= 15;
+        Console.WriteLine($"After -= 15: total = {total}");
+
+        total *= 3;
+        Console.WriteLine($"After *= 3: total = {total}");
+
+        total /= 4;
+        Console.WriteLine($"After /= 4: total = {total}");
+
+        total %= 7;
+        Console.WriteLine($"After %= 7: total = {total}");
+    }
+    public void BitwiseOperatorsExample()
+    {
+        int a = 12; // binary: 1100
+        int b = 10; // binary: 1010
+
+        int andResult = a & b; //  AND
+        int orResult = a | b;  //  OR
+        int xorResult = a ^ b; //  XOR
+
+        // a        = 1100
+        // b        = 1010
+        // a & b    = 1000  AND: 1 only where BOTH bits are 1)      = 8
+        // a | b    = 1110  OR:  1 where EITHER bit is 1           = 14
+        // a ^ b    = 0110  XOR: 1 where the bits DIFFER           = 6
+
+        Console.WriteLine($"a & b = {andResult}");
+        Console.WriteLine($"a | b = {orResult}");
+        Console.WriteLine($"a ^ b = {xorResult}");
+
+        // Practical difference between & and && in an if-condition:
+        // && short-circuits, so if the left operand is false it never
+        // evaluates  the right operand,
+        // whereas & always evaluates both operands regardless of the
+        // left side's value.
+    }
+
+}

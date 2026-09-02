@@ -97,7 +97,7 @@ namespace CSharpBasicsAssignment;
 
 
         Console.WriteLine("---------------------------------------------------");
-        Console.WriteLine($"=== Scope & Operators ===");
+        Console.WriteLine($"=== Part D:Scope & Operators ===");
 
         ScopeAndOperatorsDemo S1=new ScopeAndOperatorsDemo();
         S1.showNumber1();
@@ -107,6 +107,15 @@ namespace CSharpBasicsAssignment;
         S1.CompoundAssignmentExample();
         S1.BitwiseOperatorsExample();
 
+        Console.WriteLine($"----------------------------------------------------");
+        Console.WriteLine($"=== Part F: Find Single Number ==="); 
+        Solution solution = new Solution();
+
+        int[] nums1 = { 4, 1, 2, 1, 2 };
+        int[] nums2 = { 2, 2, 5, 5, 7 };
+
+        Console.WriteLine(solution.FindSingleNumber(nums1)); // 4
+        Console.WriteLine(solution.FindSingleNumber(nums2)); // 7
 
 
 
@@ -345,4 +354,20 @@ public class ScopeAndOperatorsDemo
         // left side's value.
     }
 
+}
+public class Solution
+{
+    public int FindSingleNumber(int[] nums)
+    {
+        int result = 0;
+
+        foreach (int num in nums)
+        {
+            result ^= num;
+        }
+
+        // من الاخر لو الرقمين زي بعض الناتج صفر لو رقم مع صفر الناتج 1
+        // so only the number appearing an odd number of times remains.
+        return result;
+    }
 }
